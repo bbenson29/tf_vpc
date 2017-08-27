@@ -24,17 +24,10 @@ resource "aws_route_table" "public" {
   }
 }
 
-resource "aws_route_table" "private" {
-  count  = "${length(var.private_subnets)}"
+resource "aws_subnet" "public" {
   vpc_id = "${aws_vpc.environment.id}"
-
+  cidr_block = "${var.public_subnets[count.index]}"
   tags {
-    Name = "${var.environment}-private"
+    Name = "${var.environment}-public"
   }
-}
-
-resource "aws_route" "public_internet_gateway" {
-  route_table_id         = "${aws_route_table.public.id}"
-  destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = "${aws_internet_gateway.environment.id}"
 }

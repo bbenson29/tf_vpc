@@ -1,5 +1,10 @@
+variable "environment" {
+  description = "The name of our environment, i.e. development."
+}
+
 variable "vpc_cidr" {
   description = "The CIDR of the VPC."
+  
 }
 
 variable "public_subnets" {
